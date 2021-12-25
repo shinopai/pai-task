@@ -1,0 +1,49 @@
+<template>
+  <div class="py-5 h-screen bg-gray-300 px-2 relative">
+    <h2 class="text-left mb-5 pl-2 font-bold text-green-500">Done<span class="float-right pr-2">{{ allTasksDone.length }}</span></h2>
+    <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-lg">
+        <div class="md:flex">
+            <div class="w-full p-4">
+                <ul>
+                    <li v-for="task in allTasksDone" :key="task" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> <input type="checkbox" name="" id="">
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black -mt-1">{{ task.subject }}</span> <span class="text-sm text-gray-400 truncate w-32">{{ task.project.project_name }}</span> </div>
+                        </div>
+                    </li>
+                    <li v-if="allTasksDone.length == 0">No tasks yet</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
+
+<script>
+import { ref, onMounted, watch } from 'vue'
+import Axios from 'axios'
+
+export default {
+  setup() {
+    const allTasksDone = ref([])
+
+    // get all tasks that state is Done
+    const getAllTasksDone = async () => {
+        await Axios.get('/api/tasks/done')
+                   .then( response => {
+                       allTasksDone.value = response.data
+                   })
+                   .catch( error => {
+                       console.log(error)
+                   })
+    }
+
+    onMounted(() => {
+        getAllTasksDone()
+    })
+
+    return {
+        allTasksDone
+    }
+  },
+}
+</script>

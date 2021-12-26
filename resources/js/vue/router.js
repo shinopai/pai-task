@@ -6,6 +6,7 @@ import Task from '../components/Task.vue'
 import CreateProject from '../components/pages/CreateProject.vue'
 import CreateTask from '../components/pages/CreateTask.vue'
 import PerProject from '../components/pages/perprojects/PerProject.vue'
+import EditTask from '../components/pages/EditTask.vue'
 
 const routes = [{
         path: '/top',
@@ -23,6 +24,12 @@ const routes = [{
         path: '/projects/:projectId/tasks',
         component: PerProject,
         name: 'project-task',
+        props: true
+    },
+    {
+        path: '/tasks/:taskId',
+        component: EditTask,
+        name: 'edit-task',
         props: true
     }
 ]

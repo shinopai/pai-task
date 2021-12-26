@@ -1,6 +1,6 @@
 <template>
   <div class="py-12">
-    <h2 class="text-2xl font-bold text-center">Create new task</h2>
+    <h2 class="text-2xl font-bold text-center">Edit task</h2>
     <p v-if="errorMessage" class="text-red-300 text-center">{{ errorMessage }}</p>
     <div class="mt-8 max-w-xl mx-auto">
       <div class="grid grid-cols-1 gap-6">
@@ -39,7 +39,7 @@
         <div class="block mt-2">
           <div class="mt-2">
             <div>
-                <button type="submit" class="p-2 rounded-xl cursor-pointer text-white bg-green-300 hover:bg-green-500 mt-2" @click="createNewTask">Create</button>
+                <button type="submit" class="p-2 rounded-xl cursor-pointer text-white bg-green-300 hover:bg-green-500 mt-2" @click="updateTask">Update</button>
             </div>
           </div>
         </div>
@@ -56,7 +56,14 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-  setup() {
+  props: {
+    taskId: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
+    const editTask = ref([])
     const taskSubject = ref('')
     const taskState = ref('')
     const taskProject = ref('')
@@ -66,9 +73,23 @@ export default {
     const router = useRouter()
     const store = useStore()
 
+    // get edit task
+    const getEditTask = async () => {
+      await Axios.get('/api/tasks/' + props.taskId + '/edit')
+                 .then( response => {
+                   taskSubject.value = response.data.subject
+                   taskState.value = response.data.state
+                   taskProject.value = response.data.project
+                 })
+                 .catch( error => {
+                   console.log(error)
+                 })
+    }
+
     onMounted(async () => {
       await store.dispatch('getCurrentUserId')
       await store.dispatch('getAllProjects')
+      getEditTask()
     })
 
     currentUserId.value = computed(() => store.state.currentUserId)
@@ -83,9 +104,9 @@ export default {
       }
     })
 
-    // create new task
-    const createNewTask = async () => {
-      await Axios.post('/api/tasks', {
+    // update task
+    const updateTask = async () => {
+      await Axios.patch('/api/tasks/' + props.taskId, {
         subject: taskSubject.value,
         state: taskState.value,
         user_id: currentUserId.value.value,
@@ -101,7 +122,7 @@ export default {
     }
 
     return {
-      taskSubject, taskState, taskProject, errorMessage, createNewTask, projects
+      taskSubject, taskState, taskProject, errorMessage, updateTask, projects
     }
   },
 }

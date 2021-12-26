@@ -60,4 +60,22 @@ class TasksApiController extends Controller
 
         return $tasks;
     }
+
+    public function deleteTask(Task $task){
+        $task->delete();
+    }
+
+    public function getEditTask(Task $task){
+        $task->load('project');
+
+        return $task;
+    }
+
+    public function updateTask(TasksRequest $request, Task $task){
+        $task->subject = $request->subject;
+        $task->state = $request->state;
+        $task->user_id = $request->user_id;
+        $task->project_id = $request->project_id;
+        $task->save();
+    }
 }

@@ -7,7 +7,9 @@
                 <ul>
                     <li v-for="task in allTasksDo" :key="task" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
                         <div class="flex ml-2"> <input type="checkbox" name="" id="">
-                            <div class="flex flex-col ml-2"> <span class="font-medium text-black -mt-1">{{ task.subject }}</span> <span class="text-sm text-gray-400 truncate w-32">{{ task.project.project_name }}</span> </div>
+                            <div class="flex flex-col ml-2"> <span class="font-medium text-black -mt-1">{{ task.subject }}</span> <span class="text-sm text-gray-400 truncate w-32">{{ task.project.project_name }}</span> <span><fa icon="trash" class="mt-2" @click="deleteTask(task.id)"/><router-link :to="{ name: 'edit-task', params: { taskId: task.id } }"><fa icon="edit" class="ml-2" /></router-link>
+</span>
+</div>
                         </div>
                     </li>
                     <li v-if="allTasksDo.length == 0">No tasks yet</li>
@@ -38,12 +40,23 @@ export default {
                    })
     }
 
+    // delete task
+    const deleteTask = async (taskId) => {
+        await Axios.delete('/api/tasks/' + taskId)
+                   .then( response => {
+                       getAllTasksDo()
+                   })
+                   .catch( error => {
+                       console.log(error)
+                   })
+    }
+
     onMounted(() => {
         getAllTasksDo()
     })
 
     return {
-        allTasksDo
+        allTasksDo, deleteTask
     }
   },
 }

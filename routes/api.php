@@ -33,8 +33,17 @@ Route::get('/project_name/{project}', 'Api\ProjectsApiController@getProjectName'
 // get all tasks that state is do
 Route::get('/projects/{project}/tasks/do', 'Api\TasksApiController@getAllProjectTasksDo');
 
-// get all tasks that state is do
+// get all tasks that state is doing
 Route::get('/projects/{project}/tasks/doing', 'Api\TasksApiController@getAllProjectTasksDoing');
 
-// get all tasks that state is do
+// get all tasks that state is done
 Route::get('/projects/{project}/tasks/done', 'Api\TasksApiController@getAllProjectTasksDone');
+
+// delete task
+Route::delete('/tasks/{task}', 'Api\TasksApiController@deleteTask');
+
+// get edit task
+Route::get('/tasks/{task}/edit', 'Api\TasksApiController@getEditTask');
+
+// update task
+Route::patch('/tasks/{task}', 'Api\TasksApiController@updateTask');

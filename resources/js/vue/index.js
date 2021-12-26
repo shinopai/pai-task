@@ -9,14 +9,13 @@ import {
 } from '@fortawesome/fontawesome-svg-core'
 import {
     faTrash,
-    faEdit,
-    faPlusCircle
+    faEdit
 } from '@fortawesome/free-solid-svg-icons'
 import {
     FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome'
 
-library.add(faTrash, faEdit, faPlusCircle)
+library.add(faTrash, faEdit)
 
 const app = createApp(App)
 app.use(store)

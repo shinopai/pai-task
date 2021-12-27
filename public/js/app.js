@@ -24374,13 +24374,13 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   setup(props) {
-    const editTask = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])([]);
     const taskSubject = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])('');
     const taskState = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])('');
-    const taskProject = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])('');
+    const taskProject = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])([]);
     const errorMessage = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])('');
     const currentUserId = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])();
     const projects = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])([]);
+    const projectDefaultValue = Object(vue__WEBPACK_IMPORTED_MODULE_0__["ref"])('');
     const router = Object(vue_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])();
     const store = Object(vuex__WEBPACK_IMPORTED_MODULE_3__["useStore"])(); // get edit task
 
@@ -24388,7 +24388,8 @@ __webpack_require__.r(__webpack_exports__);
       await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/tasks/' + props.taskId + '/edit').then(response => {
         taskSubject.value = response.data.subject;
         taskState.value = response.data.state;
-        taskProject.value = response.data.project;
+        projectDefaultValue.value = response.data.project.project_name;
+        console.log(projectDefaultValue.value);
       }).catch(error => {
         console.log(error);
       });
@@ -24430,7 +24431,8 @@ __webpack_require__.r(__webpack_exports__);
       taskProject,
       errorMessage,
       updateTask,
-      projects
+      projects,
+      projectDefaultValue
     };
   }
 
@@ -25459,55 +25461,43 @@ const _hoisted_10 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["create
 );
 
 const _hoisted_11 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
-  value: ""
-}, "task state", -1
-/* HOISTED */
-);
-
-const _hoisted_12 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
   value: "do"
 }, "do", -1
 /* HOISTED */
 );
 
-const _hoisted_13 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
+const _hoisted_12 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
   value: "doing"
 }, "doing", -1
 /* HOISTED */
 );
 
-const _hoisted_14 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
+const _hoisted_13 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
   value: "done"
 }, "done", -1
 /* HOISTED */
 );
 
-const _hoisted_15 = [_hoisted_11, _hoisted_12, _hoisted_13, _hoisted_14];
-const _hoisted_16 = {
+const _hoisted_14 = [_hoisted_11, _hoisted_12, _hoisted_13];
+const _hoisted_15 = {
   class: "block mt-2"
 };
 
-const _hoisted_17 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("span", {
+const _hoisted_16 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("span", {
   class: "text-gray-700"
 }, "Project", -1
 /* HOISTED */
 );
 
-const _hoisted_18 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("br", null, null, -1
+const _hoisted_17 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("br", null, null, -1
 /* HOISTED */
 );
 
-const _hoisted_19 = /*#__PURE__*/Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("option", {
-  value: ""
-}, "task project", -1
-/* HOISTED */
-);
-
-const _hoisted_20 = ["value"];
-const _hoisted_21 = {
+const _hoisted_18 = ["value", "selected"];
+const _hoisted_19 = {
   class: "block mt-2"
 };
-const _hoisted_22 = {
+const _hoisted_20 = {
   class: "mt-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -25528,23 +25518,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__["vModelText"], $setup.taskSubject]])]), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("label", _hoisted_8, [_hoisted_9, _hoisted_10, Object(vue__WEBPACK_IMPORTED_MODULE_0__["withDirectives"])(Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("select", {
     class: "py-1",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => $setup.taskState = $event)
-  }, _hoisted_15, 512
+  }, _hoisted_14, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__["vModelSelect"], $setup.taskState]])]), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("label", _hoisted_16, [_hoisted_17, _hoisted_18, Object(vue__WEBPACK_IMPORTED_MODULE_0__["withDirectives"])(Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("select", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__["vModelSelect"], $setup.taskState]])]), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("label", _hoisted_15, [_hoisted_16, _hoisted_17, Object(vue__WEBPACK_IMPORTED_MODULE_0__["withDirectives"])(Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("select", {
     class: "py-1",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => $setup.taskProject = $event)
-  }, [_hoisted_19, (Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(true), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])(vue__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(vue__WEBPACK_IMPORTED_MODULE_0__["renderList"])($setup.projects.value, project => {
+  }, [(Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(true), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])(vue__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(vue__WEBPACK_IMPORTED_MODULE_0__["renderList"])($setup.projects.value, project => {
     return Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])("option", {
       key: project,
-      value: project.id
+      value: project.id,
+      selected: $setup.projectDefaultValue == project.project_name
     }, Object(vue__WEBPACK_IMPORTED_MODULE_0__["toDisplayString"])(project.project_name), 9
     /* TEXT, PROPS */
-    , _hoisted_20);
+    , _hoisted_18);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__["vModelSelect"], $setup.taskProject]])]), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("div", _hoisted_21, [Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("div", _hoisted_22, [Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("div", null, [Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__["vModelSelect"], $setup.taskProject]])]), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("div", _hoisted_19, [Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("div", _hoisted_20, [Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("div", null, [Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("button", {
     type: "submit",
     class: "p-2 rounded-xl cursor-pointer text-white bg-green-300 hover:bg-green-500 mt-2",
     onClick: _cache[3] || (_cache[3] = (...args) => $setup.updateTask && $setup.updateTask(...args))

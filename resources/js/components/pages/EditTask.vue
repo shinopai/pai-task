@@ -23,7 +23,6 @@
         <label class="block mt-2">
           <span class="text-gray-700">Task state</span><br>
           <select class="py-1" v-model="taskState">
-            <option value="">task state</option>
             <option value="do">do</option>
             <option value="doing">doing</option>
             <option value="done">done</option>
@@ -32,8 +31,7 @@
         <label class="block mt-2">
           <span class="text-gray-700">Project</span><br>
             <select class="py-1" v-model="taskProject">
-              <option value="">task project</option>
-            <option v-for="project in projects.value" :key="project" :value="project.id">{{ project.project_name }}</option>
+            <option v-for="project in projects.value" :key="project" :value="project.id" :selected="projectDefaultValue == project.project_name">{{ project.project_name }}</option>
           </select>
         </label>
         <div class="block mt-2">
@@ -63,13 +61,13 @@ export default {
     }
   },
   setup(props) {
-    const editTask = ref([])
     const taskSubject = ref('')
     const taskState = ref('')
-    const taskProject = ref('')
+    const taskProject = ref([])
     const errorMessage = ref('')
     const currentUserId = ref()
     const projects = ref([])
+    const projectDefaultValue = ref('')
     const router = useRouter()
     const store = useStore()
 
@@ -79,7 +77,8 @@ export default {
                  .then( response => {
                    taskSubject.value = response.data.subject
                    taskState.value = response.data.state
-                   taskProject.value = response.data.project
+                   projectDefaultValue.value = response.data.project.project_name
+                   console.log(projectDefaultValue.value);
                  })
                  .catch( error => {
                    console.log(error)
@@ -122,7 +121,7 @@ export default {
     }
 
     return {
-      taskSubject, taskState, taskProject, errorMessage, updateTask, projects
+      taskSubject, taskState, taskProject, errorMessage, updateTask, projects, projectDefaultValue
     }
   },
 }

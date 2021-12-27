@@ -6,12 +6,12 @@
         <div class="md:flex">
             <div class="w-full p-4">
                 <ul>
-                    <li v-for="project in projects.value" :key="project" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                    <li v-if="projects.value.length == 0">No projects yet</li>
+                    <li v-else v-for="project in projects.value" :key="project" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
                     <router-link :to="{ name: 'project-task', params: { projectId: project.id } }">
                             <div class="flex flex-col ml-2"> <span class="font-medium text-black">{{ project.project_name }}</span> <span class="text-sm text-gray-400 truncate w-32">{{ project.tasks.length }} pending tasks</span> </div>
                     </router-link>
                     </li>
-                    <li v-if="projects.length == 0">No projects yet</li>
                 </ul>
             </div>
         </div>

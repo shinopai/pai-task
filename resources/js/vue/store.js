@@ -29,6 +29,7 @@ const store = createStore({
         async getAllProjects(context) {
             await Axios.get('/api/projects/all')
                 .then(response => {
+                    console.log(response.data);
                     context.commit('setProjects', response.data)
                 })
                 .catch(error => {
